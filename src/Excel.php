@@ -39,4 +39,23 @@ class Excel
 	{
 		return $this->excel->getActiveSheet()->toArray();
 	}
+
+    public function fromDataCollection($data, $fields)
+    {
+
+        return $this;
+    }
+
+    public function fromArray($data)
+    {
+        $this->excel->getActiveSheet()->fromArray($data, NULL, 'A1');
+        return $this;
+    }
+
+    public function output($filename)
+    {
+        header('Content-type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        $this->excel->save('php://output');
+    }
 }
