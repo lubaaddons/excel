@@ -40,10 +40,19 @@ class Excel
 		return $this->excel->getActiveSheet()->toArray();
 	}
 
-    public function fromDataCollection($data, $fields)
+    public function fromDataCollection($collection, $fields)
     {
+        $data = [];
+        $data[] = $fields;
+        foreach($collection as $item) {
+            $row = [];
+            foreach($fields as $field) {
+                $row[] = $item->$field;
+            }
+            $data[] = $row;
+        }
 
-        return $this;
+        return $this->fromArray($data);
     }
 
     public function fromArray($data)
@@ -56,6 +65,7 @@ class Excel
     {
         header('Content-type: application/vnd.ms-excel');
         header('Content-Disposition: attachment; filename="'.$filename.'"');
-        $this->excel->save('php://output');
+        $objWriter = \PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+        $objWriter->save('php://output');
     }
 }
