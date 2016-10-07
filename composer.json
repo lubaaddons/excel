@@ -1,7 +1,7 @@
 {
     "name": "lubaaddons/excel",
     "description": "Excel Library for Luba",
-    "version": "0.1",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Flo Stone"
